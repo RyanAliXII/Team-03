@@ -81,7 +81,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                 <div class="row height-sm-100 contents">
                     <div class="col">
-                        <form method='POST' class="needs-validation" novalidate enctype="multipart/form-data" name="applicantform">
+                        <form method='POST' class="needs-validation" novalidate enctype="multipart/form-data" name="applicantform" id="applicantForm">
                             <!-- Personal Information -->
                             <div id='personalInfo' class=" container pt-3" style="display: block;">
                                 <div class="step_progressbar">
@@ -542,8 +542,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </div>
     </div>
 
+    <template id="fieldFeedbackTemplate">
+        <div id="error-message">
+        <small class="text-danger">
+            <!-- Add error message here using selector-->
+        </small>
+        </div>
+    </template>
+
     <script src="<?php echo base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/applicant.js'); ?>"></script>
+
+    <script>
+        
+
+    </script>
 </body>
 
 </html>

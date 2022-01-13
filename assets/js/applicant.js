@@ -7,11 +7,15 @@ function personalInfo() {
 }
 
 function educationalAttainment() {
-  document.getElementById('steps').style.display = "block";
+
+if(validateForms() === false){ // has no errors
+    document.getElementById('steps').style.display = "block";
     document.getElementById('personalInfo').style.display = "none";
     document.getElementById('educationalattainment').style.display = "block";
     document.getElementById('requirement').style.display = "none";
     document.getElementById('final_step').style.display = "none";
+}
+
 }
 
 function requirement() {
@@ -52,3 +56,41 @@ function final_step() {
       }, false)
     })
 })()
+
+
+
+const validateForms = () =>{
+  let hasError = false;
+  const applicantForm = document.querySelector("#personalInfo") // this is a div not a form tag
+  const applicantFormInputs = getFormInputs(applicantForm, ['input', 'select'])
+  applicantFormInputs.forEach((element)=>{
+      const fieldFeedbackTemplate = document.querySelector("#fieldFeedbackTemplate").content
+      const fieldFeedback = document.importNode(fieldFeedbackTemplate, true).querySelector('div')
+      fieldFeedback.querySelector("small").innerText = "Field is required"
+      if(element.nextSibling.id === "error-message"){
+        element.classList.remove('is-invalid')
+        element.nextSibling.remove()
+      }
+      if(element.hasAttribute("required") && element.value === ""){
+         hasError = true
+         element.classList.add("is-invalid")
+         insertAfter(element, fieldFeedback)
+      }
+  })
+  
+  return hasError
+
+}
+const insertAfter = (referenceNode, newNode)=>{
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+const getFormInputs = (form, constraints=[])=>{
+  const elements = []
+  constraints.forEach((c)=>{
+      const formInputs = form.querySelectorAll(c)
+      formInputs.forEach((input)=>{
+          elements.push(input)
+      })
+  })
+  return elements
+}
